@@ -1,5 +1,7 @@
 export type ModalDataMap = {
   createPost: undefined;
+  newFeed: undefined;
+  settings: undefined;
 };
 
 export type ModalType = keyof ModalDataMap;

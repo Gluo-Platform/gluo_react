@@ -38,7 +38,7 @@ body {
   color: var(--foreground);
 }
 
-.fas {
+.icon {
   display: flex;
   align-items: center;
   justify-content: center;

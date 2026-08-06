@@ -9,11 +9,11 @@ export default function Overlay({
 }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-8"
+      className="fixed inset-0 z-100 flex items-center justify-center bg-black/50 p-8"
       onClick={onClose}
     >
       <div
-        className="bg-background rounded-lg p-6 w-full h-[90vh] md:max-w-150 md:max-h-125"
+        className="bg-background rounded-lg outline outline-tertiary-bg p-6 w-full h-[90vh] md:max-w-150 md:max-h-125"
         onClick={(e) => e.stopPropagation()}
       >
         {children}
