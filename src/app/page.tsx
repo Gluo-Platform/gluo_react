@@ -1,5 +1,5 @@
-export default function Home() {
+export default function LoginPage() {
   return (
-    <div className="h-full flex items-center justify-center">hello world</div>
+    <div className="flex items-center justify-center h-full">Login form!!!</div>
   );
 }
