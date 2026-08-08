@@ -1,6 +1,6 @@
 'use client';
 
-import { useModal } from '@/providers/ModalProvider';
+import { useModal } from '@/providers/Modal';
 
 export default function ModalRoot() {
   const { modalType } = useModal();
@@ -9,5 +9,8 @@ export default function ModalRoot() {
     case 'createPost':
       return <></>;
     // return <CreatePostModal onClose={closeModal} />;
+    case 'settings':
+      return <></>;
+    // return <SettingsModal onClose={closeModal} />;
   }
 }

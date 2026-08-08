@@ -1,4 +1,4 @@
-import ModalRoot from '@/components/ModalRoot';
+import ModalRoot from '@/components/modals/ModalRoot';
 import Navbar from '@/components/navbar/Navbar';
 import TopBar from '@/components/TopBar';
 import { ModalProvider } from '@/providers/Modal';
