@@ -3,8 +3,8 @@ import { Montserrat } from 'next/font/google';
 import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import './globals.css';
 
-const montserrat = Montserrat({
-  variable: '--font-montserrat',
+const fontSans = Montserrat({
+  variable: '--font-sans',
   subsets: ['latin'],
 });
 
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
+    <html lang="en" className={`${fontSans.variable} antialiased h-full dark`}>
       <body className="min-h-full flex flex-col h-full">{children}</body>
     </html>
   );
