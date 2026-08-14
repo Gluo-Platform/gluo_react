@@ -14,7 +14,7 @@ export const registerSchema = z.object({
     .nonempty('"password" can\'t be left empty.')
     .min(8, "password can't be shorter than 8 characters.")
     .max(128, "password can't exceed 128 characters."),
-  referral: z.string().length(10, 'Invalid referral code'),
+  referral: z.string().length(10, 'Invalid referral code').optional(),
   captchaToken: z.string().nonempty('Please complete the captcha.'),
 });
 
