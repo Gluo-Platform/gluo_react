@@ -11,6 +11,9 @@ importers:
       '@fortawesome/fontawesome-free':
         specifier: ^7.3.1
         version: 7.3.1
+      '@hcaptcha/react-hcaptcha':
+        specifier: ^2.1.0
+        version: 2.1.0
       '@hookform/resolvers':
         specifier: ^5.7.1
         version: 5.7.1(react-hook-form@7.84.0(react@19.2.4))(zod@4.4.3)
@@ -26,6 +29,9 @@ importers:
       react-hook-form:
         specifier: ^7.84.0
         version: 7.84.0(react@19.2.4)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -184,6 +190,9 @@ packages:
   '@fortawesome/fontawesome-free@7.3.1':
     resolution: {integrity: sha512-wmglKKPDIkgV3aWlZzWECCPoGIkYCulzBwxG9+w7rc5BGapZ6cPMpoPOT8k36J0Ni7PPX6c/rsoMWfS4d1MUMg==}
     engines: {node: '>=6'}
+
+  '@hcaptcha/react-hcaptcha@2.1.0':
+    resolution: {integrity: sha512-ztc4s7Pr8+MUYamgmgGAY7eLOThYAP4QIwKqAzj4fpymMPDlm66yo1516e68JR9VN0kmwAAJ0XrNS3NOh0BNLg==}
 
   '@hookform/resolvers@5.7.1':
     resolution: {integrity: sha512-8wS/P4UDr5sQDe4nFaV51TVyfDPrWgNIXweqG0Bs9Z5LSuzKLb+RQNPvkN2oHM5SRrJyWrVH/F+LOUcFjUyvwQ==}
@@ -1874,6 +1883,9 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+
   set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}
     engines: {node: '>= 0.4'}
@@ -2268,6 +2280,8 @@ snapshots:
       levn: 0.4.1
 
   '@fortawesome/fontawesome-free@7.3.1': {}
+
+  '@hcaptcha/react-hcaptcha@2.1.0': {}
 
   '@hookform/resolvers@5.7.1(react-hook-form@7.84.0(react@19.2.4))(zod@4.4.3)':
     dependencies:
@@ -3929,6 +3943,8 @@ snapshots:
   semver@6.3.1: {}
 
   semver@7.8.5: {}
+
+  server-only@0.0.1: {}
 
   set-function-length@1.2.2:
     dependencies:
