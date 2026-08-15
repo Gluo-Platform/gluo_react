@@ -46,3 +46,117 @@ body {
   height: 30px;
   font-size: 20px;
 }
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes wash-shift {
+  0%,
+  100% {
+    background-position:
+      82% 42%,
+      100% 50%;
+  }
+  50% {
+    background-position:
+      64% 62%,
+      88% 38%;
+  }
+}
+
+@keyframes wash-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  35% {
+    transform: translate(-10%, 8%) scale(1.16);
+  }
+  70% {
+    transform: translate(8%, -10%) scale(0.9);
+  }
+}
+
+.avatar-wash {
+  position: fixed;
+  inset: 0 0 0 18%;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  background:
+    radial-gradient(
+      ellipse 95% 85% at 78% 48%,
+      var(--wash-1) 0%,
+      var(--wash-2) 36%,
+      var(--wash-3) 56%,
+      transparent 78%
+    ),
+    linear-gradient(
+      to left,
+      var(--wash-1) 0%,
+      var(--wash-2) 32%,
+      transparent 90%
+    );
+  background-size: 140% 140%, 100% 100%;
+  mask-image: linear-gradient(to left, black 42%, transparent 100%);
+  transition: opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.avatar-wash.visible {
+  opacity: 1;
+  animation: wash-shift 18s ease-in-out 1.8s infinite;
+}
+
+.avatar-wash-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+}
+
+.avatar-wash.visible .avatar-wash-blob.one {
+  animation: wash-drift 18s ease-in-out 1.8s infinite;
+}
+
+.avatar-wash-blob.one {
+  top: 8%;
+  right: -8%;
+  width: 68%;
+  height: 72%;
+  background: var(--wash-1);
+}
+
+.avatar-wash-blob.two {
+  right: 18%;
+  bottom: 0;
+  width: 52%;
+  height: 58%;
+  background: var(--wash-2);
+}
+
+.avatar-wash.visible .avatar-wash-blob.two {
+  animation: wash-drift 22s ease-in-out 2.4s infinite;
+}
+
+.avatar-wash-blob.three {
+  top: 28%;
+  right: 32%;
+  width: 40%;
+  height: 44%;
+  background: var(--wash-3);
+}
+
+.avatar-wash.visible .avatar-wash-blob.three {
+  animation: wash-drift 20s ease-in-out 3.2s infinite;
+}
