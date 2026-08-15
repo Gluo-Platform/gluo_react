@@ -1,25 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function proxy(request: NextRequest) {
-  const accessToken = request.cookies.get('access_token');
-  const { pathname } = request.nextUrl;
+  const session = request.cookies.get('session');
 
-  const isAuthPage = pathname === '/' || pathname === '/register';
-  const isProtectedRoute =
-    pathname.startsWith('/feed') ||
-    pathname.startsWith('/me') ||
-    pathname.startsWith('/social') ||
-    pathname.startsWith('/user');
-
-  if (accessToken) {
-    if (isAuthPage) {
-      return NextResponse.redirect(new URL('/', request.url));
-    }
-
-    return NextResponse.next();
-  }
-
-  if (isProtectedRoute) {
+  if (!session) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
@@ -27,12 +11,6 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/',
-    '/register',
-    '/feed/:path*',
-    '/me/:path*',
-    '/social/:path*',
-    '/user/:path*',
-  ],
+  // note to self: match against what demands user
+  matcher: ['/feed/:path*', '/me/:path*', '/social/:path*'],
 };
