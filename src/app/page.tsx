@@ -1,13 +1,24 @@
-import LoginForm from '@/components/auth/LoginForm';
+import LoginForm from '@/components/forms/LoginForm';
 import Image from 'next/image';
 import logo from '../../public/mediapack/logo_transparent.png';
 
 export default function LoginPage() {
+  // TODO: currently login form only refreshes.
+  // login page needs to check the validity of the cookie,
+  // if one is found and valid, redirect to /feed
+  // if not we let the user re login and overwrite
+  // the stale cookie
   return (
     <div className="flex h-full overflow-hidden bg-background">
       <section className="hidden w-1/2 flex-col justify-between p-12 lg:flex xl:p-16">
         <div className="flex items-center gap-3">
-          <Image src={logo} alt="Gluo" width={40} height={40} className="size-10" />
+          <Image
+            src={logo}
+            alt="Gluo"
+            width={40}
+            height={40}
+            className="size-10"
+          />
           <span className="text-xl font-medium tracking-tight">Gluo</span>
         </div>
 
@@ -29,7 +40,13 @@ export default function LoginPage() {
 
       <section className="flex flex-1 flex-col items-center justify-center px-4 py-10">
         <div className="mb-10 flex items-center gap-3 lg:hidden">
-          <Image src={logo} alt="Gluo" width={36} height={36} className="size-9" />
+          <Image
+            src={logo}
+            alt="Gluo"
+            width={36}
+            height={36}
+            className="size-9"
+          />
           <span className="text-lg font-medium tracking-tight">Gluo</span>
         </div>
         <LoginForm />
