@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'api.gluo.xyz',
+        hostname: 'cdn.gluo.xyz',
         pathname: '/**',
       },
     ],

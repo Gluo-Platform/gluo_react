@@ -59,7 +59,7 @@ export async function extractAvatarPalette(
   src: string,
 ): Promise<AvatarPalette | null> {
   const response = await fetch(
-    `/api/auth/avatar?src=${encodeURIComponent(src)}`,
+    `${process.env.NEXT_PUBLIC_CDN_BASE_URL}/${src}`,
   );
   if (!response.ok) {
     return null;
