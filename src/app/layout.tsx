@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import '../../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import './globals.css';
+import { QueryProvider } from '@/providers/Query';
 
 const montserrat = Montserrat({
   variable: '--font-montserrat',
@@ -21,7 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${montserrat.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col h-full">{children}</body>
+      <body className="min-h-full flex flex-col h-full">
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }
