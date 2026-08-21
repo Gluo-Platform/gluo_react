@@ -5,7 +5,7 @@ import {
   ModalDataMap,
   ModalState,
   ModalType,
-} from '@/lib/common/types/modal';
+} from '@/lib/types/modal';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
 const ModalContext = createContext<ModalContextValue | null>(null);

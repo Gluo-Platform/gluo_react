@@ -1,6 +1,6 @@
 import z from 'zod';
 
-export const loginSchema = z.object({
+export const loginInputSchema = z.object({
   identifier: z
     .string()
     .trim()
@@ -13,4 +13,5 @@ export const loginSchema = z.object({
     .max(128, '"password" is too long!'),
   remember: z.boolean().optional().default(false),
 });
-export type LoginSchemaType = z.infer<typeof loginSchema>;
+
+export type LoginInputSchemaType = z.infer<typeof loginInputSchema>;

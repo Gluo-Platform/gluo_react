@@ -1,10 +1,9 @@
 'use client';
 
 import { extractAvatarPalette } from '@/lib/auth/avatarPalette';
-import { logUserIn } from '@/lib/auth/logUserIn';
+import { logUserIn } from '@/app/actions';
 import { lookupUser } from '@/lib/auth/lookupUser';
-import { isFieldError } from '@/lib/common/schemas/apiFetch';
-import { loginSchema, LoginSchemaType } from '@/lib/common/schemas/login';
+import { loginInputSchema, LoginInputSchemaType } from '@/app/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -25,7 +24,7 @@ export default function LoginForm() {
     setError,
     formState: { errors, isSubmitting },
   } = useForm({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginInputSchema),
     defaultValues: {
       identifier: '',
       password: '',
@@ -77,7 +76,7 @@ export default function LoginForm() {
     setTitleHeight(title.scrollHeight);
   }, [username]);
 
-  async function onSubmit(values: LoginSchemaType) {
+  async function onSubmit(values: LoginInputSchemaType) {
     try {
       const result = await logUserIn(values);
       // note to self: no need for router.push()/replace():
@@ -85,20 +84,30 @@ export default function LoginForm() {
       // which does server side redirct if it find a valid cookie
       // an animation/transition can be played while the
       // server action resolves as well
-      if (result.ok) router.refresh();
-      else if (result.type === 'server_error') {
+
+      console.log(result);
+
+      if (result.data) router.refresh();
+      else if (result.serverError) {
         setError('root', {
-          message: result.message,
+          message: result.serverError,
         });
-      } else {
-        result.error.details.forEach((detail) => {
-          if (isFieldError(detail)) {
-            // not proud of this one but it aint worth it
-            setError(detail.field as 'identifier', { message: detail.message });
-          } else {
-            setError('root', { message: detail.message });
+      } else if (result.validationErrors) {
+        console.log(result.validationErrors);
+        const { _errors: rootErrors, ...fieldErrors } = result.validationErrors;
+
+        if (rootErrors?.[0]) {
+          setError('root', { message: rootErrors[0] });
+        }
+
+        for (const key of Object.keys(
+          fieldErrors,
+        ) as (keyof typeof fieldErrors)[]) {
+          const message = fieldErrors[key]?._errors?.[0];
+          if (message) {
+            setError(key, { message });
           }
-        });
+        }
       }
     } catch (err) {
       setError('root', {
