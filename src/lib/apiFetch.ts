@@ -25,7 +25,7 @@ const ApiValidationErrorSchema = z.object({
 type DetailItem = z.infer<typeof DetailItemSchema>;
 type ApiValidationError = z.infer<typeof ApiValidationErrorSchema>;
 
-type GeneralError = string;
+type GeneralError = string | null;
 type FieldErrors = Record<string, string>;
 
 type ParsedErrors = {
@@ -34,6 +34,7 @@ type ParsedErrors = {
 };
 
 function parseApiError(details: DetailItem[]): ParsedErrors {
+  console.log({ details });
   return details.reduce<ParsedErrors>(
     (acc, d) => {
       if ('field' in d) {
@@ -43,7 +44,7 @@ function parseApiError(details: DetailItem[]): ParsedErrors {
       }
       return acc;
     },
-    { fieldErrors: {}, generalError: '' },
+    { fieldErrors: {}, generalError: null },
   );
 }
 
