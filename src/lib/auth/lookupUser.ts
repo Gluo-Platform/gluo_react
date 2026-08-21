@@ -1,7 +1,7 @@
 'use server';
 
-import { apiBaseUrl } from '../common/constants';
-import { apiFetch } from '../common/utils/apiFetch';
+import { apiBaseUrl } from '../constants';
+import { apiFetch } from '../apiFetch';
 
 type LookupResultType = { username: string; avatar: string | null } | null;
 
