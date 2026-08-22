@@ -1,6 +1,6 @@
 'use client';
 
-import { getSessionUser, User } from '@/lib/server/getSessionUser';
+import { User } from '@/lib/types/user';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
 type SessionContextType = {
@@ -21,8 +21,8 @@ export function SessionProvider({
   const [user, setUser] = useState<User | null>(initialUser);
 
   async function refreshUser() {
-    const fresh = await getSessionUser();
-    setUser(fresh);
+    // const fresh = await getSessionUser();
+    // setUser(fresh);
   }
 
   return (
