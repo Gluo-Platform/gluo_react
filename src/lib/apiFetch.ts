@@ -1,6 +1,7 @@
 import 'server-only';
 import z from 'zod';
 import { ActionError } from '@/lib/safe-action';
+import { inspect } from 'node:util';
 
 const FieldErrorSchema = z.object({
   field: z.string(),
@@ -38,7 +39,7 @@ function parseApiError(details: DetailItem[]): ParsedErrors {
   return details.reduce<ParsedErrors>(
     (acc, d) => {
       if ('field' in d) {
-        acc.fieldErrors[d.field] = d.message;
+        acc.fieldErrors[d.field] = d.message ?? '';
       } else {
         acc.generalError = d.message;
       }
@@ -60,21 +61,21 @@ export async function apiFetch<T>(
   let res: Response;
   try {
     res = await fetch(url, options);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(inspect({ error }, { depth: null }));
     throw new ActionError('Could not reach the server');
   }
 
   let json: unknown;
   try {
     json = await res.json();
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    console.error(inspect({ error }, { depth: null }));
     throw new ActionError('Internal server error');
   }
 
   if (res.status >= 500) {
-    console.error({ status: res.status, json });
+    console.error(inspect({ status: res.status, json }, { depth: null }));
     throw new ActionError('Internal server error');
   }
 
@@ -89,6 +90,8 @@ export async function apiFetch<T>(
     }
 
     console.error('unexpected error shape, alert kip');
+
+    console.log(inspect({ json }, { depth: null }));
     throw new ActionError('Internal server error');
   }
 
