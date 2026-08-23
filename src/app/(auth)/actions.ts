@@ -7,7 +7,7 @@ import { apiFetch } from '@/lib/apiFetch';
 import { apiBaseUrl, backendToken, nodeEnv } from '@/lib/constants';
 import { cookies } from 'next/headers';
 
-export const logUserIn = actionClient
+export const logUserInAction = actionClient
   .inputSchema(loginInputSchema)
   .action(async ({ parsedInput: { identifier, password, remember } }) => {
     const result = await apiFetch<{ token: string }>(
