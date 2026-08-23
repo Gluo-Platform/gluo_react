@@ -1,3 +1,4 @@
+import OnboardingForm from '@/components/forms/Onboarding';
 import { getSessionUser } from '@/lib/server/getSessionUser';
 import { redirect } from 'next/navigation';
 
@@ -10,7 +11,7 @@ export default async function OnboardingPage() {
   return (
     <div className="w-full h-full flex items-center justify-center">
       <div className="outline outline-secondary-bg p-6">
-        {/* <OnboardingForm /> */}
+        <OnboardingForm />
       </div>
     </div>
   );
