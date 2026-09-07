@@ -1,13 +1,14 @@
-import LoginForm from '@/components/forms/LoginForm';
 import Image from 'next/image';
-import logo from '../../public/mediapack/logo_transparent.png';
+import { redirect } from 'next/navigation';
 
-export default function LoginPage() {
-  // TODO: currently login form only refreshes.
-  // login page needs to check the validity of the cookie,
-  // if one is found and valid, redirect to /feed
-  // if not we let the user re login and overwrite
-  // the stale cookie
+import logo from '../../public/mediapack/logo_transparent.png';
+import LoginForm from '@/components/forms/LoginForm';
+import { getSessionUser } from '@/lib/server/getSessionUser';
+
+export default async function LoginPage() {
+  const user = await getSessionUser();
+  if (user !== null) redirect('/feed');
+
   return (
     <div className="flex h-full overflow-hidden bg-background">
       <section className="hidden w-1/2 flex-col justify-between p-12 lg:flex xl:p-16">
@@ -17,7 +18,7 @@ export default function LoginPage() {
             alt="Gluo"
             width={40}
             height={40}
-            className="size-10"
+            className="size-10 cover"
           />
           <span className="text-xl font-medium tracking-tight">Gluo</span>
         </div>

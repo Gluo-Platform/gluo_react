@@ -9,8 +9,9 @@ import {
 import { returnValidationErrors } from 'next-safe-action';
 import { apiFetch } from '@/lib/apiFetch';
 import { apiBaseUrl, backendToken, hCaptchaSecretKey } from '@/lib/constants';
+import { redirect } from 'next/navigation';
 
-export const registerUser = actionClient
+export const registerUserAction = actionClient
   .inputSchema(registerInputSchema)
   .outputSchema(registerOutputSchema)
   .action(
@@ -69,6 +70,6 @@ export const registerUser = actionClient
         });
       }
 
-      return result.data;
+      redirect(`/check-inbox?email=${email}`);
     },
   );

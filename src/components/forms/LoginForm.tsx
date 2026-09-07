@@ -1,7 +1,7 @@
 'use client';
 
 import { extractAvatarPalette } from '@/lib/auth/avatarPalette';
-import { logUserIn } from '@/app/actions';
+import { logUserInAction } from '@/app/actions';
 import { lookupUser } from '@/lib/auth/lookupUser';
 import { loginInputSchema, LoginInputSchemaType } from '@/app/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -78,7 +78,7 @@ export default function LoginForm() {
 
   async function onSubmit(values: LoginInputSchemaType) {
     try {
-      const result = await logUserIn(values);
+      const result = await logUserInAction(values);
       // note to self: no need for router.push()/replace():
       // refresh() rerenders login page (server component)
       // which does server side redirct if it find a valid cookie
