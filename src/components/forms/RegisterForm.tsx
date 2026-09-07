@@ -1,9 +1,9 @@
 'use client';
-import { registerUserAction } from '@/app/(auth)/register/actions';
+import { registerUserAction } from '@/app/register/actions';
 import {
   registerInputSchema,
   RegisterInputSchemaType,
-} from '@/app/(auth)/register/schemas';
+} from '@/app/register/schemas';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';

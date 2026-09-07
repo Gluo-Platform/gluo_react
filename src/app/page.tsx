@@ -1,14 +1,11 @@
-import { getSessionUser } from '@/lib/server/getSessionUser';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { ReactNode } from 'react';
-import logo from '../../../public/mediapack/logo_transparent.png';
 
-export default async function AuthLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+import logo from '../../../public/mediapack/logo_transparent.png';
+import LoginForm from '@/components/forms/LoginForm';
+import { getSessionUser } from '@/lib/server/getSessionUser';
+
+export default async function LoginPage() {
   const user = await getSessionUser();
   if (user !== null) redirect('/feed');
 
@@ -53,7 +50,7 @@ export default async function AuthLayout({
           />
           <span className="text-lg font-medium tracking-tight">Gluo</span>
         </div>
-        {children}
+        <LoginForm />
       </section>
     </div>
   );
