@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 
-import logo from '../../../public/mediapack/logo_transparent.png';
+import logo from '../../public/mediapack/logo_transparent.png';
 import LoginForm from '@/components/forms/LoginForm';
 import { getSessionUser } from '@/lib/server/getSessionUser';
 
