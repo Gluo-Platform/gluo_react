@@ -39,6 +39,7 @@ export default async function ActivationRequestPage({
               />
               <input
                 id="email"
+                name="email"
                 type="email"
                 autoComplete="email"
                 placeholder="Email"

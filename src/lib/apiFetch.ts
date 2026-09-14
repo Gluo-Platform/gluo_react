@@ -5,13 +5,13 @@ import { inspect } from 'node:util';
 
 const FieldErrorSchema = z.object({
   field: z.string(),
-  message: z.string(),
+  error: z.string(),
   code: z.number(),
 });
 
 const GeneralErrorSchema = z
   .object({
-    message: z.string(),
+    error: z.string(),
     code: z.number(),
   })
   .strict();
@@ -39,9 +39,9 @@ function parseApiError(details: DetailItem[]): ParsedErrors {
   return details.reduce<ParsedErrors>(
     (acc, d) => {
       if ('field' in d) {
-        acc.fieldErrors[d.field] = d.message ?? '';
+        acc.fieldErrors[d.field] = d.error ?? '';
       } else {
-        acc.generalError = d.message;
+        acc.generalError = d.error;
       }
       return acc;
     },
