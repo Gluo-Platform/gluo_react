@@ -5,7 +5,7 @@ import logo from '../../../public/mediapack/logo_transparent.png';
 import RegisterForm from '@/components/forms/RegisterForm';
 import { getSessionUser } from '@/lib/server/getSessionUser';
 
-export default async function LoginPage() {
+export default async function RegisterPage() {
   const user = await getSessionUser();
   if (user !== null) redirect('/feed');
 
