@@ -3,7 +3,7 @@
 import { apiFetch } from '@/lib/apiFetch';
 import { apiBaseUrl } from '@/lib/constants';
 import { actionClient } from '@/lib/safe-action';
-import { requestActivationSchema } from './/schemas';
+import { emailSchema } from '@/lib/schemas/email';
 import { redirect } from 'next/navigation';
 
 export async function requestActivationFormAction(formData: FormData) {
@@ -14,7 +14,7 @@ export async function requestActivationFormAction(formData: FormData) {
 }
 
 export const requestActivationAction = actionClient
-  .inputSchema(requestActivationSchema)
+  .inputSchema(emailSchema)
   .action(async ({ parsedInput: { email } }) => {
     await apiFetch<{ message: string }>(`${apiBaseUrl}/auth/email/resend`, {
       method: 'POST',
