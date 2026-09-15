@@ -7,12 +7,17 @@ function maskEmail(email: string) {
   return `${local[0]}${'*'.repeat(local.length - 2)}${local.at(-1)}@${domain}`;
 }
 
+// note to self: an array/Set version scales better if we want to support more types
+function isValidType(type?: string): type is 'activate' | 'password' {
+  return type === 'password' || type === 'activate';
+}
+
 export default async function CheckEmailPage({
   searchParams,
 }: {
-  searchParams: Promise<{ email?: string }>;
+  searchParams: Promise<{ type?: string; email?: string }>;
 }) {
-  const { email } = await searchParams;
+  const { type, email } = await searchParams;
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
@@ -29,27 +34,35 @@ export default async function CheckEmailPage({
         </h1>
 
         <p className="mt-2 text-sm text-secondary-font">
+          We&apos;ll email you instructions if an account exists for
           {email ? (
-            <>
-              We sent a verification link to{' '}
-              <span className="font-medium text-foreground">
-                {maskEmail(email)}
-              </span>
-              .
-            </>
+            <span className="font-medium text-foreground">
+              {maskEmail(email)}.
+            </span>
           ) : (
-            'We sent a verification link to your inbox.'
-          )}{' '}
-          Click it to activate your account.
+            'that email.'
+          )}
         </p>
 
         <div className="mt-8 flex flex-col items-center gap-3">
-          <span>
-            Didn&apos;t get activation email?{' '}
-            <Link href="/activate?expired=true" className="font-bold">
-              Request a new one
-            </Link>
-          </span>
+          <h2>Didn&apos;t receive an email?</h2>
+          <p>Please wait a few second, check your spam folder.</p>
+
+          {isValidType(type) && (
+            <span>
+              Or you can{' '}
+              <Link
+                href={
+                  type === 'activate'
+                    ? '/activate?expired=true'
+                    : '/forgot-password'
+                }
+                className="font-bold"
+              >
+                Request a new one
+              </Link>
+            </span>
+          )}
 
           <Link
             href="/"
