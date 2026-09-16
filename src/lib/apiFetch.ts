@@ -6,6 +6,7 @@ import { inspect } from 'node:util';
 const DetailItemSchema = z.object({
   field: z.string().optional(),
   error: z.string(),
+  code: z.number().optional(),
 });
 
 const ApiValidationErrorSchema = z.object({
