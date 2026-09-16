@@ -35,7 +35,6 @@ export default function ResetPasswordForm({ token }: { token: string }) {
     setTokenError(false);
     try {
       const result = await passwordResetAction({ ...values, token });
-      console.log({ result });
 
       if (result.data) router.refresh();
       else if (result.serverError) {

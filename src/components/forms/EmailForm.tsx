@@ -31,7 +31,6 @@ export default function EmailForm({
   async function onSubmit(values: EmailSchemaType) {
     try {
       const result = await action(values);
-      console.log(result);
 
       if (result.data)
         router.replace(`/check-inbox?type=${type}&email=${values.email}`);

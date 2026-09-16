@@ -85,15 +85,12 @@ export default function LoginForm() {
       // an animation/transition can be played while the
       // server action resolves as well
 
-      console.log(result);
-
       if (result.data) router.refresh();
       else if (result.serverError) {
         setError('root', {
           message: result.serverError,
         });
       } else if (result.validationErrors) {
-        console.log(result.validationErrors);
         const { _errors: rootErrors, ...fieldErrors } = result.validationErrors;
 
         if (rootErrors?.[0]) {

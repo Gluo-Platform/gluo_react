@@ -62,8 +62,7 @@ export default function RegisterForm() {
           }
         }
       }
-    } catch (error) {
-      console.log(error);
+    } catch {
       setError('root', { message: 'Internal server error' });
     } finally {
       captchaRef.current?.resetCaptcha();

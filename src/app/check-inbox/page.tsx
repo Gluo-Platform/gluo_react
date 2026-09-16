@@ -35,7 +35,7 @@ export default async function CheckEmailPage({
         </h1>
 
         <p className="mt-2 text-sm text-secondary-font">
-          We&apos;ll email you instructions if an account exists for
+          We&apos;ll emailed you instructions if an account exists for{' '}
           {email ? (
             <span className="font-medium text-foreground">
               {maskEmail(email)}.
@@ -54,9 +54,9 @@ export default async function CheckEmailPage({
               Or you can{' '}
               <Link
                 href={type === 'activate' ? '/activate' : '/password-reset'}
-                className="font-bold"
+                className="font-bold underline"
               >
-                Request a new one
+                request a new one
               </Link>
             </span>
           )}
