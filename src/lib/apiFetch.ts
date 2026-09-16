@@ -3,20 +3,10 @@ import z from 'zod';
 import { ActionError } from '@/lib/safe-action';
 import { inspect } from 'node:util';
 
-const FieldErrorSchema = z.object({
-  field: z.string(),
+const DetailItemSchema = z.object({
+  field: z.string().optional(),
   error: z.string(),
-  code: z.number(),
 });
-
-const GeneralErrorSchema = z
-  .object({
-    error: z.string(),
-    code: z.number(),
-  })
-  .strict();
-
-const DetailItemSchema = z.union([FieldErrorSchema, GeneralErrorSchema]);
 
 const ApiValidationErrorSchema = z.object({
   error: z.string(),
@@ -38,7 +28,7 @@ function parseApiError(details: DetailItem[]): ParsedErrors {
   console.log({ details });
   return details.reduce<ParsedErrors>(
     (acc, d) => {
-      if ('field' in d) {
+      if (d.field) {
         acc.fieldErrors[d.field] = d.error ?? '';
       } else {
         acc.generalError = d.error;
