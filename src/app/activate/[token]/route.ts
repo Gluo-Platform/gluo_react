@@ -29,7 +29,7 @@ export async function GET(
       sameSite: 'lax',
       path: '/',
     });
-    redirect('/feed');
+    redirect('/onboarding');
   }
 
   redirect('/activate?expired=true');
