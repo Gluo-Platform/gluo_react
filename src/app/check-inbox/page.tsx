@@ -35,7 +35,7 @@ export default async function CheckEmailPage({
         </h1>
 
         <p className="mt-2 text-sm text-secondary-font">
-          We&apos;ll emailed you instructions if an account exists for{' '}
+          We&apos;ll email you instructions if an account exists for{' '}
           {email ? (
             <span className="font-medium text-foreground">
               {maskEmail(email)}.
