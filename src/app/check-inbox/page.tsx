@@ -1,3 +1,4 @@
+import { CheckInboxType } from '@/lib/types/emailAction';
 import Link from 'next/link';
 
 function maskEmail(email: string) {
@@ -8,7 +9,7 @@ function maskEmail(email: string) {
 }
 
 // note to self: an array/Set version scales better if we want to support more types
-function isValidType(type?: string): type is 'activate' | 'password' {
+function isValidType(type?: string): type is CheckInboxType {
   return type === 'password' || type === 'activate';
 }
 
@@ -52,11 +53,7 @@ export default async function CheckEmailPage({
             <span>
               Or you can{' '}
               <Link
-                href={
-                  type === 'activate'
-                    ? '/activate?expired=true'
-                    : '/forgot-password'
-                }
+                href={type === 'activate' ? '/activate' : '/password-reset'}
                 className="font-bold"
               >
                 Request a new one
