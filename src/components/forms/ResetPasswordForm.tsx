@@ -1,14 +1,14 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { passwordResetAction } from '@/app/password-reset/actions';
 import {
   passwordResetSchema,
   PasswordResetSchemaType,
 } from '@/app/password-reset/schemas';
-import { passwordResetAction } from '@/app/password-reset/actions';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 const fieldClassName =
   'w-full rounded-xl bg-secondary-bg py-3.5 pr-4 pl-11 text-base text-foreground outline-none pr-12 placeholder:text-secondary-font transition-colors duration-300 focus:bg-tertiary-bg';
@@ -29,10 +29,13 @@ export default function ResetPasswordForm({ token }: { token: string }) {
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [tokenError, setTokenError] = useState<boolean>(false);
 
   async function onSubmit(values: PasswordResetSchemaType) {
+    setTokenError(false);
     try {
       const result = await passwordResetAction({ ...values, token });
+      console.log({ result });
 
       if (result.data) router.refresh();
       else if (result.serverError) {
@@ -40,10 +43,21 @@ export default function ResetPasswordForm({ token }: { token: string }) {
           message: result.serverError,
         });
       } else if (result.validationErrors) {
-        console.log(result.validationErrors);
-        setError('root', {
-          message: 'Something went wrong. Try again later.',
-        });
+        const { _errors: rootErrors, ...fieldErrors } = result.validationErrors;
+
+        if (rootErrors?.[0]) {
+          setError('root', { message: rootErrors[0] });
+        }
+
+        for (const key of Object.keys(
+          fieldErrors,
+        ) as (keyof typeof fieldErrors)[]) {
+          const message = fieldErrors[key]?._errors?.[0];
+          if (message) {
+            if (key === 'token') setTokenError(true);
+            else setError(key, { message });
+          }
+        }
       }
     } catch (err) {
       setError('root', {
@@ -128,6 +142,15 @@ export default function ResetPasswordForm({ token }: { token: string }) {
           </p>
         ) : null}
       </div>
+
+      {tokenError ? (
+        <p
+          className="rounded-xl bg-red/10 px-3 py-2.5 text-sm text-red"
+          role="alert"
+        >
+          Link expired, please request a new one.
+        </p>
+      ) : null}
 
       {errors.root ? (
         <p
