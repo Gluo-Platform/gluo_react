@@ -1,6 +1,6 @@
+import EmailForm from '@/components/forms/EmailForm';
 import Link from 'next/link';
-import { requestActivationFormAction } from './actions';
-import { IslandSubmitBtn } from '@/components/ui/IslandSubmitBtn';
+import { requestActivationAction } from './actions';
 
 export default async function ActivationRequestPage({
   searchParams,
@@ -28,43 +28,7 @@ export default async function ActivationRequestPage({
         </p>
 
         <div className="mt-8">
-          <form className="flex gap-4" action={requestActivationFormAction}>
-            <div className="relative flex-1">
-              <label className="sr-only" htmlFor="email">
-                Email
-              </label>
-              <i
-                className="fas fa-user pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-sm text-secondary-font"
-                aria-hidden="true"
-              />
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder="Email"
-                maxLength={128}
-                className="w-full rounded-xl bg-secondary-bg py-3.5 pr-4 pl-11 text-base text-foreground outline-none placeholder:text-secondary-font transition-colors duration-300 focus:bg-tertiary-bg"
-              />
-            </div>
-            <div>
-              <IslandSubmitBtn
-                staticText={
-                  <i
-                    className="fas fa-paper-plane text-sm transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
-                    aria-hidden="true"
-                  />
-                }
-                loadingText={
-                  <i
-                    className="fas fa-circle-notch animate-spin"
-                    aria-hidden="true"
-                  />
-                }
-                className="cursor-pointer group mt-1 flex items-center justify-center gap-2 rounded-xl bg-primary py-3.5 text-base font-semibold text-background transition-[transform,opacity] duration-300 hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-              />
-            </div>
-          </form>
+          <EmailForm type="activate" action={requestActivationAction} />
         </div>
 
         <Link
