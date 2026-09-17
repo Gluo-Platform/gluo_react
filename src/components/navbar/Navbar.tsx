@@ -11,8 +11,7 @@ type navPanels = null | 'feeds' | 'social' | 'profile' | 'settings';
 
 export default function Navbar() {
   const { openModal, closeModal } = useModal();
-  // const { session } = useSession(); yet to figure this out
-  const pathname = usePathname();
+  const pathname = '';
   const [activePanel, setActivePanel] = useState<navPanels>(null);
 
   function handlePanelSelection(selection: navPanels) {

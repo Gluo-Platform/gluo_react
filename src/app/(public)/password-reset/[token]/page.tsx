@@ -1,6 +1,8 @@
 import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
 import Link from 'next/link';
 
+export const instant = false;
+
 export default async function ResetPasswordPage({
   params,
 }: {

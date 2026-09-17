@@ -2,6 +2,8 @@ import EmailForm from '@/components/forms/EmailForm';
 import Link from 'next/link';
 import { requestActivationAction } from './actions';
 
+export const instant = false;
+
 export default async function ActivationRequestPage({
   searchParams,
 }: {

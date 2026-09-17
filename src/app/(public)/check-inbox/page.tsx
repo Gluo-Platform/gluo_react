@@ -1,6 +1,8 @@
 import { CheckInboxType } from '@/lib/types/emailAction';
 import Link from 'next/link';
 
+export const instant = false;
+
 function maskEmail(email: string) {
   const [local, domain] = email.split('@');
   if (!local || !domain) return email;
