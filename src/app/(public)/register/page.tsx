@@ -3,15 +3,20 @@ import { getSessionUser } from '@/lib/server/getSessionUser';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import logo from '../../../../public/mediapack/logo_transparent.png';
+import { Suspense } from 'react';
 
-export const instant = false;
+async function RedirectIfAuthed() {
+  const user = await getSessionUser();
+  if (user) redirect('/feed');
+  return <></>;
+}
 
 export default async function RegisterPage() {
-  const user = await getSessionUser();
-  if (user !== null) redirect('/feed');
-
   return (
     <div className="flex h-full overflow-hidden bg-background">
+      <Suspense>
+        <RedirectIfAuthed />
+      </Suspense>
       <section className="hidden w-1/2 flex-col justify-between p-12 lg:flex xl:p-16">
         <div className="flex items-center gap-3">
           <Image
@@ -51,7 +56,9 @@ export default async function RegisterPage() {
           />
           <span className="text-lg font-medium tracking-tight">Gluo</span>
         </div>
-        <RegisterForm />
+        <Suspense>
+          <RegisterForm />
+        </Suspense>
       </section>
     </div>
   );
