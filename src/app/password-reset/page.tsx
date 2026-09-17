@@ -1,13 +1,14 @@
 import EmailForm from '@/components/forms/EmailForm';
 import Link from 'next/link';
-import { requestActivationAction } from './actions';
+import { requestPasswordResetAction } from './actions';
 
-export default async function ActivationRequestPage({
+export default async function ForgotPasswordPage({
   searchParams,
 }: {
   searchParams: Promise<{ expired?: boolean }>;
 }) {
   const { expired } = await searchParams;
+
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm text-center">
@@ -19,16 +20,18 @@ export default async function ActivationRequestPage({
         </div>
 
         <h1 className="text-xl font-semibold text-foreground">
-          {expired ? 'This link has expired' : 'Request a new activation email'}
+          {expired
+            ? 'This link has expired'
+            : 'Request a new password reset email'}
         </h1>
 
         <p className="mt-2 text-sm text-secondary-font">
-          Activation links are only valid for an hour. Enter your email below
-          and we&apos;ll send a new one.
+          Password reset links are only valid for an hour. Enter your email
+          below and we&apos;ll send a new one.
         </p>
 
         <div className="mt-8">
-          <EmailForm type="activate" action={requestActivationAction} />
+          <EmailForm type="password" action={requestPasswordResetAction} />
         </div>
 
         <Link

@@ -37,7 +37,6 @@ export default function OnboardingForm() {
           message: result.serverError,
         });
       } else if (result.validationErrors) {
-        console.log(result.validationErrors);
         setError('root', {
           message:
             'Please choose 1 to 5 topics, you can always change this later',

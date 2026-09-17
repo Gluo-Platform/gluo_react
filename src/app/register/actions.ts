@@ -70,6 +70,6 @@ export const registerUserAction = actionClient
         });
       }
 
-      redirect(`/check-inbox?email=${email}`);
+      redirect(`/check-inbox?type=activate&email=${email}`);
     },
   );

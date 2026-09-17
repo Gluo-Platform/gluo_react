@@ -12,5 +12,5 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   // note to self: match against what demands user
-  matcher: ['/feed/:path*', '/me/:path*', '/social/:path*'],
+  matcher: ['/onboarding', '/feed/:path*', '/me/:path*', '/social/:path*'],
 };

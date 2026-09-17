@@ -8,7 +8,6 @@ export async function GET(
   { params }: { params: Promise<{ token: string }> },
 ) {
   const { token } = await params;
-  console.log({ token });
 
   const result = await apiFetch<{ token: string }>(
     `${apiBaseUrl}/auth/activate`,
@@ -21,7 +20,6 @@ export async function GET(
       body: JSON.stringify({ token }),
     },
   );
-  console.log(result);
 
   if (result.ok) {
     const cookieStore = await cookies();
@@ -31,7 +29,7 @@ export async function GET(
       sameSite: 'lax',
       path: '/',
     });
-    redirect('/feed');
+    redirect('/onboarding');
   }
 
   redirect('/activate?expired=true');
