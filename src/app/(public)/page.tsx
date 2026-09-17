@@ -1,5 +1,5 @@
 import LoginForm from '@/components/forms/LoginForm';
-import { getSessionUser } from '@/lib/server/getSessionUser';
+import { getSessionUser } from '@/lib/data/getSessionUser';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';

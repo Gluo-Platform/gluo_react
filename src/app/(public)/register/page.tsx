@@ -1,5 +1,5 @@
 import RegisterForm from '@/components/forms/RegisterForm';
-import { getSessionUser } from '@/lib/server/getSessionUser';
+import { getSessionUser } from '@/lib/data/getSessionUser';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import logo from '../../../../public/mediapack/logo_transparent.png';

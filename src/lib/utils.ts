@@ -1,3 +1,5 @@
+// this file will house CLIENT-ONLY utilities
+
 type RGB = [number, number, number];
 
 function saturation(r: number, g: number, b: number) {

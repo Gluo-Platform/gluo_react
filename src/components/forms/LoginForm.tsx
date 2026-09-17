@@ -2,8 +2,8 @@
 
 import { logUserInAction } from '@/app/(public)/actions';
 import { loginInputSchema, LoginInputSchemaType } from '@/app/(public)/schemas';
-import { extractAvatarPalette } from '@/lib/auth/avatarPalette';
-import { lookupUser } from '@/lib/auth/lookupUser';
+import { extractAvatarPalette } from '@/lib/utils';
+import { lookupUser } from '@/lib/data/lookupUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
