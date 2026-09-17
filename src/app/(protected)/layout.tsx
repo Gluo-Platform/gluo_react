@@ -1,4 +1,4 @@
-import { getSessionUser } from '@/lib/server/getSessionUser';
+import { getSessionUser } from '@/lib/data/getSessionUser';
 import { redirect } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 
