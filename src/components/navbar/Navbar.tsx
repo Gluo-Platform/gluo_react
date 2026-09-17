@@ -3,16 +3,51 @@ import { useModal } from '@/providers/Modal';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import defaultIcon from '../../../public/default.webp';
 import NavbarItem from './NavbarItem';
 
 type navPanels = null | 'feeds' | 'social' | 'profile' | 'settings';
 
+function ActiveIcon({
+  matchPrefix,
+  iconClass,
+  onClickAction,
+}: {
+  matchPrefix: string;
+  iconClass: string;
+  onClickAction: () => void;
+}) {
+  const pathname = usePathname();
+  const isActive = pathname.startsWith(matchPrefix);
+
+  return (
+    <i
+      className={`icon ${iconClass} cursor-pointer transition-colors ${
+        isActive ? 'text-foreground' : 'text-secondary-font'
+      }`}
+      onClick={onClickAction}
+    ></i>
+  );
+}
+
+function InactiveIcon({
+  iconClass,
+  onClick,
+}: {
+  iconClass: string;
+  onClick: () => void;
+}) {
+  return (
+    <i
+      className={`icon ${iconClass} text-secondary-font cursor-pointer transition-colors`}
+      onClick={onClick}
+    ></i>
+  );
+}
+
 export default function Navbar() {
   const { openModal, closeModal } = useModal();
-  // const { session } = useSession(); yet to figure this out
-  const pathname = usePathname();
   const [activePanel, setActivePanel] = useState<navPanels>(null);
 
   function handlePanelSelection(selection: navPanels) {
@@ -27,14 +62,36 @@ export default function Navbar() {
     <div className="bg-background flex flex-col-reverse xl:flex-row absolute bottom-0 left-0 right-0 xl:max-w-87.5 xl:w-full xl:left-0 xl:top-0 xl:bottom-0">
       {/* icon navigation */}
       <nav className="relative z-55 bg-background gap-6.25 p-3 flex items-center justify-evenly border-t border-secondary-bg sm:justify-center xl:border-r xl:flex-col xl:p-6.25 xl:justify-start">
-        <i
-          className={`icon fas fa-home cursor-pointer transition-colors ${pathname.startsWith('/feed') ? 'text-foreground' : 'text-secondary-font'}`}
-          onClick={() => handlePanelSelection('feeds')}
-        ></i>
-        <i
-          className={`icon fas fa-users cursor-pointer transition-colors ${pathname.startsWith('/social') ? 'text-foreground' : 'text-secondary-font'}`}
-          onClick={() => handlePanelSelection('social')}
-        ></i>
+        <Suspense
+          fallback={
+            <InactiveIcon
+              iconClass="fas fa-home"
+              onClick={() => handlePanelSelection('feeds')}
+            />
+          }
+        >
+          <ActiveIcon
+            matchPrefix="/feed"
+            iconClass="fas fa-home"
+            onClickAction={() => handlePanelSelection('feeds')}
+          />
+        </Suspense>
+
+        <Suspense
+          fallback={
+            <InactiveIcon
+              iconClass="fas fa-users"
+              onClick={() => handlePanelSelection('social')}
+            />
+          }
+        >
+          <ActiveIcon
+            matchPrefix="/social"
+            iconClass="fas fa-users"
+            onClickAction={() => handlePanelSelection('social')}
+          />
+        </Suspense>
+
         <i
           className={`icon fas fa-plus text-secondary-font cursor-pointer`}
           onClick={() => openModal('createPost')}

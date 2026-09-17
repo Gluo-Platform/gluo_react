@@ -1,5 +1,5 @@
-import { requestPasswordResetAction } from '@/app/password-reset/actions';
-import { requestActivationAction } from '@/app/activate/actions';
+import { requestPasswordResetAction } from '@/app/(public)/password-reset/actions';
+import { requestActivationAction } from '@/app/(public)/activate/actions';
 
 export type CheckInboxType = 'activate' | 'password';
 

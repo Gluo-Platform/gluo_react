@@ -2,6 +2,8 @@ import OnboardingForm from '@/components/forms/Onboarding';
 import { getSessionUser } from '@/lib/server/getSessionUser';
 import { redirect } from 'next/navigation';
 
+export const instant = false;
+
 export default async function OnboardingPage() {
   const user = await getSessionUser();
   if (!user) redirect('/');

@@ -6,6 +6,8 @@ import { apiBaseUrl } from '../constants';
 import { User } from '../types/user';
 
 export const getSessionUser = cache(async (): Promise<User | null> => {
+  'use cache: private';
+
   const cookieStore = await cookies();
   const sessionToken = cookieStore.get('session')?.value;
 
@@ -16,7 +18,6 @@ export const getSessionUser = cache(async (): Promise<User | null> => {
     headers: {
       Authorization: `Bearer ${sessionToken}`,
     },
-    cache: 'no-store',
   });
 
   if (!result.ok) return null;

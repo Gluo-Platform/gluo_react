@@ -1,16 +1,22 @@
-import Image from 'next/image';
-import { redirect } from 'next/navigation';
-
-import logo from '../../public/mediapack/logo_transparent.png';
 import LoginForm from '@/components/forms/LoginForm';
 import { getSessionUser } from '@/lib/server/getSessionUser';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
+import logo from '../../../public/mediapack/logo_transparent.png';
+
+async function RedirectIfAuthed() {
+  const user = await getSessionUser();
+  if (user) redirect('/feed');
+  return <></>;
+}
 
 export default async function LoginPage() {
-  const user = await getSessionUser();
-  if (user !== null) redirect('/feed');
-
   return (
     <div className="flex h-full overflow-hidden bg-background">
+      <Suspense>
+        <RedirectIfAuthed />
+      </Suspense>
       <section className="hidden w-1/2 flex-col justify-between p-12 lg:flex xl:p-16">
         <div className="flex items-center gap-3">
           <Image

@@ -1,15 +1,15 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { onboardUserAction } from '@/app/(protected)/onboarding/actions';
 import {
   DEFAULT_TOPICS,
   onboardingSchema,
   OnboardingSchemaType,
-} from '@/app/onboarding/schemas';
-import { onboardUserAction } from '@/app/onboarding/actions';
+} from '@/app/(protected)/onboarding/schemas';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function OnboardingForm() {
   const router = useRouter();

@@ -1,13 +1,17 @@
 import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
 import Link from 'next/link';
+import { Suspense } from 'react';
+
+async function AsyncResetPasswordForm({
+  params,
+}: Pick<PageProps<'/password-reset/[token]'>, 'params'>) {
+  const { token } = await params;
+  return <ResetPasswordForm token={token} />;
+}
 
 export default async function ResetPasswordPage({
   params,
-}: {
-  params: Promise<{ token: string }>;
-}) {
-  const { token } = await params;
-
+}: PageProps<'/password-reset/[token]'>) {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm text-center">
@@ -23,7 +27,9 @@ export default async function ResetPasswordPage({
         </h1>
 
         <div className="mt-8">
-          <ResetPasswordForm token={token} />
+          <Suspense fallback={<div>TODO: form skeletok</div>}>
+            <AsyncResetPasswordForm params={params} />
+          </Suspense>
         </div>
 
         <span className="mt-6 inline-block text-xs text-secondary-font">

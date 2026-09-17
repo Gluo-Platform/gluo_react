@@ -1,10 +1,10 @@
 'use client';
 
-import { passwordResetAction } from '@/app/password-reset/actions';
+import { passwordResetAction } from '@/app/(public)/password-reset/actions';
 import {
   passwordResetSchema,
   PasswordResetSchemaType,
-} from '@/app/password-reset/schemas';
+} from '@/app/(public)/password-reset/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

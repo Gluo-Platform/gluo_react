@@ -1,5 +1,6 @@
 import EmailForm from '@/components/forms/EmailForm';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { requestPasswordResetAction } from './actions';
 
 export default async function ForgotPasswordPage({
@@ -7,8 +8,6 @@ export default async function ForgotPasswordPage({
 }: {
   searchParams: Promise<{ expired?: boolean }>;
 }) {
-  const { expired } = await searchParams;
-
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm text-center">
@@ -20,9 +19,13 @@ export default async function ForgotPasswordPage({
         </div>
 
         <h1 className="text-xl font-semibold text-foreground">
-          {expired
-            ? 'This link has expired'
-            : 'Request a new password reset email'}
+          <Suspense fallback={<div>TODO: title skeleton?</div>}>
+            {searchParams.then(({ expired }) =>
+              expired
+                ? 'This link has expired'
+                : 'Request a new password reset email',
+            )}
+          </Suspense>
         </h1>
 
         <p className="mt-2 text-sm text-secondary-font">

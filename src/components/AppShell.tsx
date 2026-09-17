@@ -4,7 +4,7 @@ import TopBar from '@/components/TopBar';
 import { ModalProvider } from '@/providers/Modal';
 import { ReactNode } from 'react';
 
-export default function MainLayout({ children }: { children: ReactNode }) {
+export default function AppShell({ children }: { children: ReactNode }) {
   return (
     <ModalProvider>
       <Navbar />
@@ -17,7 +17,6 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         <h2 className="text-2xl my-5">Friends</h2>
         <div></div>
       </div>
-      {/*  */}
       <ModalRoot />
     </ModalProvider>
   );
