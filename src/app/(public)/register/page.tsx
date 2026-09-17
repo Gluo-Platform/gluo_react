@@ -1,9 +1,8 @@
-import Image from 'next/image';
-import { redirect } from 'next/navigation';
-
-import logo from '../../../public/mediapack/logo_transparent.png';
 import RegisterForm from '@/components/forms/RegisterForm';
 import { getSessionUser } from '@/lib/server/getSessionUser';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import logo from '../../../../public/mediapack/logo_transparent.png';
 
 export default async function RegisterPage() {
   const user = await getSessionUser();
