@@ -1,11 +1,12 @@
 'use server';
 
 import { apiFetch } from '@/lib/apiFetch';
-import { apiBaseUrl, backendToken } from '@/lib/constants';
+import { apiBaseUrl, backendToken, nodeEnv } from '@/lib/constants';
 import { actionClient } from '@/lib/safe-action';
 import { emailSchema } from '@/lib/schemas/email';
-import { passwordResetInputSchema } from './schemas';
 import { returnValidationErrors } from 'next-safe-action';
+import { cookies } from 'next/headers';
+import { passwordResetInputSchema } from './schemas';
 
 export const requestPasswordResetAction = actionClient
   .inputSchema(emailSchema)
@@ -39,7 +40,7 @@ export const requestPasswordResetAction = actionClient
 export const passwordResetAction = actionClient
   .inputSchema(passwordResetInputSchema)
   .action(async ({ parsedInput: { password, token } }) => {
-    const result = await apiFetch<{ message: string }>(
+    const result = await apiFetch<{ token: string }>(
       `${apiBaseUrl}/auth/password/change`,
       {
         method: 'POST',
@@ -61,6 +62,15 @@ export const passwordResetAction = actionClient
         ...(result.generalError && { _errors: [result.generalError] }),
       });
     }
+
+    const cookieStore = await cookies();
+    cookieStore.set('session', result.data.token, {
+      httpOnly: true,
+      secure: nodeEnv === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 5, // 5 days
+    });
 
     return true;
   });
