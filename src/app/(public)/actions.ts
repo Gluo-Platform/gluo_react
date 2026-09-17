@@ -1,11 +1,11 @@
 'use server';
 
-import { actionClient } from '@/lib/safe-action';
-import { loginInputSchema } from './schemas';
-import { returnValidationErrors } from 'next-safe-action';
 import { apiFetch } from '@/lib/apiFetch';
 import { apiBaseUrl, backendToken, nodeEnv } from '@/lib/constants';
+import { actionClient } from '@/lib/safe-action';
+import { returnValidationErrors } from 'next-safe-action';
 import { cookies } from 'next/headers';
+import { loginInputSchema } from './schemas';
 
 export const logUserInAction = actionClient
   .inputSchema(loginInputSchema)

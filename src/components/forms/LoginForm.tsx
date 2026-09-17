@@ -1,9 +1,9 @@
 'use client';
 
+import { logUserInAction } from '@/app/(public)/actions';
+import { loginInputSchema, LoginInputSchemaType } from '@/app/(public)/schemas';
 import { extractAvatarPalette } from '@/lib/auth/avatarPalette';
-import { logUserInAction } from '@/app/actions';
 import { lookupUser } from '@/lib/auth/lookupUser';
-import { loginInputSchema, LoginInputSchemaType } from '@/app/schemas';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
