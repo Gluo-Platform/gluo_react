@@ -1,7 +1,6 @@
 import { CheckInboxType } from '@/lib/types/emailAction';
 import Link from 'next/link';
-
-export const instant = false;
+import { Suspense } from 'react';
 
 function maskEmail(email: string) {
   const [local, domain] = email.split('@');
@@ -20,8 +19,6 @@ export default async function CheckEmailPage({
 }: {
   searchParams: Promise<{ type?: string; email?: string }>;
 }) {
-  const { type, email } = await searchParams;
-
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm text-center">
@@ -38,30 +35,41 @@ export default async function CheckEmailPage({
 
         <p className="mt-2 text-sm text-secondary-font">
           We&apos;ll email you instructions if an account exists for{' '}
-          {email ? (
-            <span className="font-medium text-foreground">
-              {maskEmail(email)}.
-            </span>
-          ) : (
-            'that email.'
-          )}
+          <Suspense fallback="that email">
+            {searchParams.then(({ email }) =>
+              email ? (
+                <span className="font-medium text-foreground">
+                  {maskEmail(email)}.
+                </span>
+              ) : (
+                'that email.'
+              ),
+            )}
+          </Suspense>
         </p>
 
         <div className="mt-8 flex flex-col items-center gap-3">
           <h2>Didn&apos;t receive an email?</h2>
           <p>Please wait a few second, check your spam folder.</p>
 
-          {isValidType(type) && (
-            <span>
-              Or you can{' '}
-              <Link
-                href={type === 'activate' ? '/activate' : '/password-reset'}
-                className="font-bold underline"
-              >
-                request a new one
-              </Link>
-            </span>
-          )}
+          <Suspense>
+            {searchParams.then(
+              ({ type }) =>
+                isValidType(type) && (
+                  <span>
+                    Or you can{' '}
+                    <Link
+                      href={
+                        type === 'activate' ? '/activate' : '/password-reset'
+                      }
+                      className="font-bold underline"
+                    >
+                      request a new one
+                    </Link>
+                  </span>
+                ),
+            )}
+          </Suspense>
 
           <Link
             href="/"
