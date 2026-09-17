@@ -40,7 +40,7 @@ export const passwordResetAction = actionClient
   .inputSchema(passwordResetInputSchema)
   .action(async ({ parsedInput: { password, token } }) => {
     const result = await apiFetch<{ message: string }>(
-      `${apiBaseUrl}/auth/password/reset`,
+      `${apiBaseUrl}/auth/password/change`,
       {
         method: 'POST',
         headers: {
